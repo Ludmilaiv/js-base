@@ -27,8 +27,21 @@
 -->
 <script>
   "use strict";
+  const number = +prompt("Первый способ. Введите число");
 
-  // Здесь пишем решение, данный комментарий необходимо стереть.
+   // Первый способ
+  let hundreds = Math.floor(number % 1000 / 100);
+  let tens = Math.floor(number % 100/ 10);
+  let unit = number % 10;
+  alert(`Первый способ. В числе ${number} количество сотен: ${hundreds}, десятков: ${tens}, единиц: ${unit}`);
+
+  //Второй способ
+  const stringNumber = String(number);
+  hundreds = +stringNumber.slice(-3, -2);
+  tens = +stringNumber.slice(-2, -1);
+  unit = +stringNumber.slice(-1);
+  alert(`Второй способ. В числе ${number} количество сотен: ${hundreds}, десятков: ${tens}, единиц: ${unit}`);
+
 </script>
 </body>
 </html>
