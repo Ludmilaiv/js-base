@@ -37,20 +37,49 @@
   1. При наведении на любую из звезд, данной звезде должен ставиться класс
   golden, также такой класс должен ставиться всем звездам до нее слева.
   */
+  const stars = Array.from(document.querySelectorAll('.fa-star'));
+  const starsContainer =  document.querySelector('.stars_container');
 
+  const setGolden = e => {
+    const starIndex = stars.indexOf(e.target);
+    if (starIndex === -1) return;
+    for (let i = 0; i <= starIndex; i++) {
+      stars[i].classList.add('golden');
+    };
+  }
+
+  starsContainer.addEventListener('mouseover', setGolden);
 
   /*
   2. Когда мы уводим курсор мыши от звезды, все поставленные классы из первого
   задания должны быть удалены.
    */
+  const removeGolden = e => {
+    const starIndex = stars.indexOf(e.target);
+    if (starIndex === -1) return;
+    for (let i = 0; i <= starIndex; i++) {
+      stars[i].classList.remove('golden');
+    };
+  }
 
+  starsContainer.addEventListener('mouseout', removeGolden);
 
   /*
   3. Когда мы переводим мышь от одной звезды к другой, у нас могут мигать
   звезды (временно могут становиться черными). Почему так? Напишите словами.
   Можем ли мы это исправить? Если да, то предложите решение.
   */
-
+  /*
+  Между звёздами есть расстояние. Мышь покидает звезду, класс golden удаляется со всех звёзд, 
+  они гаснут и остаются в таком состоянии, пока мышь не доберётся до следующей звезды, 
+  на которой обработается событие, добавляющее класс golden.
+  Решение:
+  При наведении мыши на звезду, ей и всем предыдущим звёздам добавлять класс golden,
+  как мы это сейчас и делаем. А у всех следующих за ней звёзд удалять класс golden, если он есть.
+  Событие выхода курсора со звезды не обрабатывать. Так мы добьёмся того, что звёзды не будут гаснуть при переходе
+  от одной звезды к другой.
+  А когда мышь полностью покидает starsContainer, удалять класс golden у всех звёзд.
+  */
 
 </script>
 </body>
