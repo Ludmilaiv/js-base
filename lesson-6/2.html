@@ -65,7 +65,9 @@
   должно моментально отображаться в span. То есть при печати в input'е тег span
   также должен меняться.
   */
-
+  document.getElementById('from').addEventListener('input', e => {
+    document.querySelector('span').textContent = e.target.value;
+  });
 
   /*
   2. При клике на кнопку с классом messageBtn необходимо элементу с классом
@@ -73,7 +75,11 @@
   1) добавить два класса: animate__animated и animate__fadeInLeftBig
   2) поставить данному элементу стиль visibility в значение 'visible'.
    */
-
+  document.querySelector('.messageBtn').addEventListener('click', () => {
+    const messageElem = document.querySelector('.message');
+    messageElem.classList.add('animate__animated', 'animate__fadeInLeftBig');
+    messageElem.style.visibility = 'visible';
+  })
 
   /*
   3. Необходимо при отправке формы проверить, заполнены ли все поля в этой
@@ -86,7 +92,34 @@
   данному полю).
   Если поле было чем-либо заполнено, подсветку (класс error) необходимо убрать.
    */
+  const form = document.querySelector('form');
+  const inputs = form.querySelectorAll('input,select');
 
+  const validate = e => {
+    e.preventDefault();
+    let isValid = true;
+    inputs.forEach(input => {
+      if (!input.value) {
+        input.classList.add('error');
+        isValid = false;
+      }
+    });
+    if (isValid) {
+      e.target.submit();
+    }
+  }
+  const onInput = e => {
+    if (e.target.value) {
+      e.target.classList.remove('error');
+    } else {
+      e.target.classList.add('error');
+    }
+  }
+
+  inputs.forEach(input => {
+    input.addEventListener('input', onInput);
+  })
+  form.addEventListener('submit', validate);
 
 </script>
 </body>
